@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amit Online Coaching Centre - BCA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="assets/images/knu-logo.svg" alt="Kazi Nazrul University Logo" class="university-logo">
+            <div class="logo-text">
+                <div class="main-logo">Amit Online Coaching</div>
+                <div class="affiliation">Affiliated with Kazi Nazrul University</div>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#courses">Courses</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#placements">Placements</a>
+            <a href="#contact">Contact</a>
+            <button class="login-btn admission-btn" onclick="openAdmissionModal()">Admission</button>
+            <button class="login-btn student-btn" onclick="openStudentModal()">Student Login</button>
+            <button class="login-btn" onclick="openLoginModal()">Teacher Login</button>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <h2>Teacher Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" id="teacherEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="teacherPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-submit-btn">Login</button>
+                <p class="register-link">New teacher? <a href="#" onclick="openTeacherRegistrationModal(); return false;">Register Now</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Teacher Registration Modal -->
+    <div id="teacherRegistrationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeTeacherRegistrationModal()">&times;</span>
+            <h2>Teacher Registration</h2>
+            <form id="teacherRegistrationForm" class="registration-form">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teacherName">Full Name*</label>
+                            <input type="text" id="teacherName" name="teacherName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherEmail">Email*</label>
+                            <input type="email" id="teacherEmail" name="teacherEmail" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teacherPhone">Phone Number*</label>
+                            <input type="tel" id="teacherPhone" name="teacherPhone" pattern="[0-9]{10}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherDOB">Date of Birth*</label>
+                            <input type="date" id="teacherDOB" name="teacherDOB" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Information -->
+                <div class="form-section">
+                    <h3>Professional Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="qualification">Highest Qualification*</label>
+                            <input type="text" id="qualification" name="qualification" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="specialization">Specialization*</label>
+                            <select id="specialization" name="specialization" required>
+                                <option value="">Select Specialization</option>
+                                <option value="programming">Programming</option>
+                                <option value="database">Database Systems</option>
+                                <option value="networking">Computer Networks</option>
+                                <option value="ai">Artificial Intelligence</option>
+                                <option value="ds">Data Science</option>
+                                <option value="cloud">Cloud Computing</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Teaching Experience (Years)*</label>
+                        <input type="number" id="experience" name="experience" min="0" required>
+                    </div>
+                </div>
+
+                <!-- Document Upload -->
+                <div class="form-section">
+                    <h3>Documents</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="resume">Resume/CV (PDF)*</label>
+                            <input type="file" id="resume" name="resume" accept=".pdf" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="certificate">Qualification Certificate (PDF)*</label>
+                            <input type="file" id="certificate" name="certificate" accept=".pdf" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Setup -->
+                <div class="form-section">
+                    <h3>Create Account</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newPassword">Password*</label>
+                            <input type="password" id="newPassword" name="newPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password*</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" required>
+                        I agree to the terms and conditions
+                    </label>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="submit-btn">Register</button>
+                    <button type="button" class="reset-btn" onclick="resetTeacherForm()">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admission Modal -->
+    <div id="admissionModal" class="modal">
+        <div class="modal-content admission-modal-content">
+            <span class="close-modal" onclick="closeAdmissionModal()">&times;</span>
+            <h2>Student Admission Form</h2>
+            <form id="admissionForm" class="admission-form">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name*</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth*</label>
+                            <input type="date" id="dob" name="dob" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender">Gender*</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category*</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="general">General</option>
+                                <option value="sc">SC</option>
+                                <option value="st">ST</option>
+                                <option value="obc">OBC</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="aadhaar">Aadhaar Number* <span class="field-hint">(12 digits)</span></label>
+                        <input type="text" id="aadhaar" name="aadhaar" 
+                               pattern="[0-9]{12}" 
+                               title="Please enter a valid 12-digit Aadhaar number"
+                               maxlength="12"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                               required>
+                        <div class="aadhaar-format">Format: XXXX XXXX XXXX</div>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="form-section">
+                    <h3>Contact Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address*</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number*</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Complete Address*</label>
+                        <textarea id="address" name="address" rows="3" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Academic Information -->
+                <div class="form-section">
+                    <h3>Academic Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course">Select Course*</label>
+                            <select id="course" name="course" required>
+                                <option value="">Select a Course</option>
+                                <option value="bca">BCA</option>
+                                <option value="bca-ai">BCA with AI Specialization</option>
+                                <option value="bca-ds">BCA with Data Science</option>
+                                <option value="bca-cloud">BCA with Cloud Computing</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="batch">Batch Timing*</label>
+                            <select id="batch" name="batch" required disabled>
+                                <option value="">First select a course</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lastExam">Last Examination*</label>
+                            <input type="text" id="lastExam" name="lastExam" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="percentage">Percentage Obtained*</label>
+                            <input type="number" id="percentage" name="percentage" min="0" max="100" step="0.01" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Educational Background -->
+                <div class="form-section">
+                    <h3>Educational Background</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lastDegree">Last Completed Degree*</label>
+                            <input type="text" id="lastDegree" name="lastDegree" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="percentage">Percentage/CGPA*</label>
+                            <input type="number" id="percentage" name="percentage" min="0" max="100" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="institution">Institution Name*</label>
+                        <input type="text" id="institution" name="institution" required>
+                    </div>
+                </div>
+
+                <!-- Documents Upload -->
+                <div class="form-section">
+                    <h3>Required Documents</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="photo">Passport Size Photo*</label>
+                            <input type="file" id="photo" name="photo" accept="image/*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="marksheet">Last Semester Marksheet*</label>
+                            <input type="file" id="marksheet" name="marksheet" accept=".pdf,.jpg,.jpeg,.png" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="declaration" name="declaration" required>
+                            I hereby declare that all the information provided is true to the best of my knowledge
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                    <button type="reset" class="reset-btn">Reset Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Student Modal -->
+    <div id="studentModal" class="modal">
+        <div class="modal-content student-modal-content">
+            <span class="close-modal" onclick="closeStudentModal()">&times;</span>
+            <div class="form-container">
+                <!-- Login Form -->
+                <div id="studentLoginForm" class="student-form active">
+                    <h2>Student Login</h2>
+                    <form id="loginStudentForm">
+                        <div class="form-group">
+                            <input type="text" id="studentId" placeholder="Student ID" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="studentPassword" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Login</button>
+                    </form>
+                    <p class="form-switch">New student? <a href="#" onclick="switchStudentForm('register')">Register here</a></p>
+                </div>
+
+                <!-- Registration Form -->
+                <div id="studentRegisterForm" class="student-form">
+                    <h2>Student Registration</h2>
+                    <form id="registerStudentForm">
+                        <div class="form-group">
+                            <input type="text" id="regName" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="regEmail" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="regPhone" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="regCourse" required>
+                                <option value="">Select Course</option>
+                                <option value="bca">BCA</option>
+                                <option value="bca_advanced">BCA Advanced</option>
+                                <option value="bca_specialized">BCA Specialized</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="regPassword" placeholder="Create Password" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Register</button>
+                    </form>
+                    <p class="form-switch">Already registered? <a href="#" onclick="switchStudentForm('login')">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Amit Online Coaching Centre</h1>
+            <h2>Excellence in BCA Education</h2>
+            <p>Transform your career with our comprehensive BCA program</p>
+            <button class="cta-button">Get Started</button>
+        </div>
+    </section>
+
+    <section id="courses" class="courses">
+        <h2>Our BCA Courses</h2>
+        <div class="course-grid">
+            <div class="course-card">
+                <h3>Programming Fundamentals</h3>
+                <p>Learn C, C++, and Java programming</p>
+            </div>
+            <div class="course-card">
+                <h3>Web Development</h3>
+                <p>Master HTML, CSS, JavaScript</p>
+            </div>
+            <div class="course-card">
+                <h3>Database Management</h3>
+                <p>SQL and Database Design</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2>Why Choose Us?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Expert Faculty</h3>
+                <p>Learn from industry professionals</p>
+            </div>
+            <div class="feature-card">
+                <h3>Live Sessions</h3>
+                <p>Interactive online classes</p>
+            </div>
+            <div class="feature-card">
+                <h3>Practical Training</h3>
+                <p>Hands-on project experience</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>Amit Online Coaching Centre is dedicated to providing quality education in Bachelor of Computer Applications. Our mission is to empower students with practical knowledge and skills required in the IT industry.</p>
+    </section>
+
+    <section id="placements" class="placements">
+        <h2>Placements & Recruitment</h2>
+        <div class="placement-stats">
+            <div class="stat-card">
+                <h3>95%</h3>
+                <p>Placement Rate</p>
+            </div>
+            <div class="stat-card">
+                <h3>50+</h3>
+                <p>Partner Companies</p>
+            </div>
+            <div class="stat-card">
+                <h3>₹6 LPA</h3>
+                <p>Average Package</p>
+            </div>
+        </div>
+
+        <div class="recruitment-companies">
+            <h3>Top Recruiting Companies</h3>
+            <div class="company-grid">
+                <div class="company-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png" alt="Google">
+                    <h4>Google</h4>
+                    <p>Software Engineer</p>
+                    <button class="apply-btn" onclick="showJobDetails('Google', 'Software Engineer')">View Details</button>
+                </div>
+                <div class="company-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png" alt="Microsoft">
+                    <h4>Microsoft</h4>
+                    <p>Full Stack Developer</p>
+                    <button class="apply-btn" onclick="showJobDetails('Microsoft', 'Full Stack Developer')">View Details</button>
+                </div>
+                <div class="company-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/2048px-Amazon_icon.svg.png" alt="Amazon">
+                    <h4>Amazon</h4>
+                    <p>Cloud Engineer</p>
+                    <button class="apply-btn" onclick="showJobDetails('Amazon', 'Cloud Engineer')">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Details Modal -->
+        <div id="jobModal" class="modal">
+            <div class="modal-content job-modal-content">
+                <span class="close-modal" onclick="closeJobModal()">&times;</span>
+                <div id="jobDetails">
+                    <h2 id="jobTitle">Job Details</h2>
+                    <div class="job-info">
+                        <h3 id="companyName"></h3>
+                        <h4 id="position"></h4>
+                        <div class="job-description">
+                            <h4>Job Description:</h4>
+                            <ul id="jobDescription"></ul>
+                        </div>
+                        <div class="requirements">
+                            <h4>Requirements:</h4>
+                            <ul id="requirements"></ul>
+                        </div>
+                        <div class="package">
+                            <h4>Package Details:</h4>
+                            <p id="package"></p>
+                        </div>
+                        <button class="apply-now-btn" onclick="applyForJob()">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="class-routine" class="section">
+        <div class="container">
+            <h2 class="section-title">Class Routine</h2>
+            <div class="routine-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-course="bca">BCA</button>
+                    <button class="tab-btn" data-course="bca-ai">BCA with AI</button>
+                    <button class="tab-btn" data-course="bca-ds">BCA with DS</button>
+                    <button class="tab-btn" data-course="bca-cloud">BCA with Cloud</button>
+                </div>
+                
+                <div class="routine-tables">
+                    <!-- BCA Routine -->
+                    <div class="routine-table active" id="bca-routine">
+                        <h3>BCA Regular Routine</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Monday</th>
+                                        <th>Tuesday</th>
+                                        <th>Wednesday</th>
+                                        <th>Thursday</th>
+                                        <th>Friday</th>
+                                        <th>Saturday</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>8:00 - 9:00</td>
+                                        <td>Programming in C</td>
+                                        <td>Computer Networks</td>
+                                        <td>Database Systems</td>
+                                        <td>Web Development</td>
+                                        <td>Java Programming</td>
+                                        <td>Project Work</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9:15 - 10:15</td>
+                                        <td>Java Programming</td>
+                                        <td>Programming in C</td>
+                                        <td>Web Development</td>
+                                        <td>Computer Networks</td>
+                                        <td>Database Systems</td>
+                                        <td>Practical Lab</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10:30 - 11:30</td>
+                                        <td>Database Systems</td>
+                                        <td>Web Development</td>
+                                        <td>Programming in C</td>
+                                        <td>Java Programming</td>
+                                        <td>Computer Networks</td>
+                                        <td>Doubt Session</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- BCA with AI Routine -->
+                    <div class="routine-table" id="bca-ai-routine">
+                        <h3>BCA with AI Specialization Routine</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Monday</th>
+                                        <th>Tuesday</th>
+                                        <th>Wednesday</th>
+                                        <th>Thursday</th>
+                                        <th>Friday</th>
+                                        <th>Saturday</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>9:00 - 10:00</td>
+                                        <td>AI Fundamentals</td>
+                                        <td>Machine Learning</td>
+                                        <td>Python Programming</td>
+                                        <td>Deep Learning</td>
+                                        <td>Neural Networks</td>
+                                        <td>AI Project</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10:15 - 11:15</td>
+                                        <td>Python Programming</td>
+                                        <td>AI Fundamentals</td>
+                                        <td>Neural Networks</td>
+                                        <td>Machine Learning</td>
+                                        <td>Deep Learning</td>
+                                        <td>Lab Work</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11:30 - 12:30</td>
+                                        <td>Deep Learning</td>
+                                        <td>Neural Networks</td>
+                                        <td>Machine Learning</td>
+                                        <td>AI Fundamentals</td>
+                                        <td>Python Programming</td>
+                                        <td>Mentoring</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Add similar tables for DS and Cloud Computing -->
+                    <!-- BCA with Data Science Routine -->
+                    <div class="routine-table" id="bca-ds-routine">
+                        <h3>BCA with Data Science Routine</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Monday</th>
+                                        <th>Tuesday</th>
+                                        <th>Wednesday</th>
+                                        <th>Thursday</th>
+                                        <th>Friday</th>
+                                        <th>Saturday</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>8:30 - 9:30</td>
+                                        <td>Statistics</td>
+                                        <td>Data Mining</td>
+                                        <td>R Programming</td>
+                                        <td>Big Data</td>
+                                        <td>Data Visualization</td>
+                                        <td>DS Project</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9:45 - 10:45</td>
+                                        <td>Data Mining</td>
+                                        <td>Statistics</td>
+                                        <td>Data Visualization</td>
+                                        <td>R Programming</td>
+                                        <td>Big Data</td>
+                                        <td>Lab Work</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11:00 - 12:00</td>
+                                        <td>Big Data</td>
+                                        <td>Data Visualization</td>
+                                        <td>Statistics</td>
+                                        <td>Data Mining</td>
+                                        <td>R Programming</td>
+                                        <td>Case Study</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- BCA with Cloud Computing Routine -->
+                    <div class="routine-table" id="bca-cloud-routine">
+                        <h3>BCA with Cloud Computing Routine</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Monday</th>
+                                        <th>Tuesday</th>
+                                        <th>Wednesday</th>
+                                        <th>Thursday</th>
+                                        <th>Friday</th>
+                                        <th>Saturday</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>9:30 - 10:30</td>
+                                        <td>Cloud Basics</td>
+                                        <td>AWS Services</td>
+                                        <td>Azure Fundamentals</td>
+                                        <td>DevOps</td>
+                                        <td>Cloud Security</td>
+                                        <td>Cloud Project</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10:45 - 11:45</td>
+                                        <td>AWS Services</td>
+                                        <td>Cloud Security</td>
+                                        <td>DevOps</td>
+                                        <td>Cloud Basics</td>
+                                        <td>Azure Fundamentals</td>
+                                        <td>Lab Practice</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12:00 - 1:00</td>
+                                        <td>Azure Fundamentals</td>
+                                        <td>DevOps</td>
+                                        <td>Cloud Security</td>
+                                        <td>AWS Services</td>
+                                        <td>Cloud Basics</td>
+                                        <td>Workshop</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <section id="exam-portal" class="exam-portal">
+        <h2>Exam Portal</h2>
+        <div class="dashboard">
+            <!-- BCA First Semester Exam Portal Card -->
+            <div class="dashboard-card bca-exam-portal-card">
+                <div class="card-header">
+                    <h3>
+                        <i class="fas fa-laptop-code"></i> 
+                        BCA First Semester
+                    </h3>
+                    <div class="semester-badge">Semester 1</div>
+                </div>
+                <div class="exam-portal-content">
+                    <div class="subject-list">
+                        <div class="subject-item">
+                            <i class="fas fa-desktop"></i>
+                            <span>Computer Fundamentals</span>
+                        </div>
+                        <div class="subject-item">
+                            <i class="fas fa-code"></i>
+                            <span>Programming in C</span>
+                        </div>
+                        <div class="subject-item">
+                            <i class="fas fa-square-root-alt"></i>
+                            <span>Mathematics-I</span>
+                        </div>
+                        <div class="subject-item">
+                            <i class="fas fa-microchip"></i>
+                            <span>Digital Electronics</span>
+                        </div>
+                        <div class="subject-item">
+                            <i class="fas fa-comments"></i>
+                            <span>Communication Skills</span>
+                        </div>
+                    </div>
+                    <div class="exam-status">
+                        <div class="status-item">
+                            <div class="status-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="status-info">
+                                <span class="status-label">Next Exam</span>
+                                <span class="status-value" id="nextBCAExam">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="status-info">
+                                <span class="status-label">Upcoming Tests</span>
+                                <span class="status-value" id="upcomingBCATests">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button onclick="viewBCASchedule()" class="schedule-btn">
+                            <i class="fas fa-calendar-alt"></i>
+                            View Schedule
+                        </button>
+                        <button onclick="openBCAExamPortal()" class="bca-exam-btn">
+                            <i class="fas fa-edit"></i>
+                            Start Exam
+                            <span class="exam-notification" id="bcaExamNotification"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Amit Online Coaching Centre. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
