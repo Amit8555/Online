@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCA First Semester Exam Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="exam-page">
+    <div class="exam-container">
+        <header class="exam-header">
+            <div class="exam-info">
+                <h1 id="examTitle">Loading...</h1>
+                <div class="exam-meta">
+                    <span id="subjectCode"></span>
+                    <span class="separator">•</span>
+                    <span id="examDate"></span>
+                </div>
+            </div>
+            <div class="exam-timer">
+                <i class="fas fa-clock"></i>
+                <span id="timeRemaining">--:--:--</span>
+            </div>
+        </header>
+
+        <div class="exam-content">
+            <aside class="question-navigator">
+                <div class="student-info">
+                    <img src="images/avatar.png" alt="Student" class="student-avatar">
+                    <div class="student-details">
+                        <h3 id="studentName">Loading...</h3>
+                        <span id="rollNumber"></span>
+                    </div>
+                </div>
+                <div class="progress-info">
+                    <div class="progress-item">
+                        <span class="label">Attempted</span>
+                        <span id="attemptedCount" class="value">0/0</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="label">Marked for Review</span>
+                        <span id="reviewCount" class="value">0</span>
+                    </div>
+                </div>
+                <div class="question-grid" id="questionGrid">
+                    <!-- Question numbers will be dynamically added here -->
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="dot not-visited"></span>
+                        <span>Not Visited</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="dot current"></span>
+                        <span>Current</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="dot answered"></span>
+                        <span>Answered</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="dot marked"></span>
+                        <span>Marked for Review</span>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="question-area">
+                <div class="question-container" id="questionContainer">
+                    <div class="question-header">
+                        <span class="question-number">Question <span id="currentQuestionNo">1</span></span>
+                        <span class="question-marks">Marks: <span id="questionMarks">0</span></span>
+                    </div>
+                    <div class="question-content" id="questionContent">
+                        Loading question...
+                    </div>
+                    <div class="options-container" id="optionsContainer">
+                        <!-- Options will be dynamically added here -->
+                    </div>
+                    <div class="question-actions">
+                        <button class="action-btn" onclick="markForReview()">
+                            <i class="fas fa-flag"></i> Mark for Review
+                        </button>
+                        <button class="action-btn clear-btn" onclick="clearResponse()">
+                            <i class="fas fa-eraser"></i> Clear Response
+                        </button>
+                    </div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="nav-btn" onclick="previousQuestion()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button class="nav-btn" onclick="saveAndNext()">
+                        Save & Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </main>
+        </div>
+
+        <footer class="exam-footer">
+            <div class="exam-actions">
+                <button class="action-btn" onclick="showInstructions()">
+                    <i class="fas fa-info-circle"></i> Instructions
+                </button>
+                <button class="submit-btn" onclick="confirmSubmit()">
+                    <i class="fas fa-paper-plane"></i> Submit Exam
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="submitModal">
+        <div class="modal-content">
+            <h2>Confirm Submission</h2>
+            <div class="submission-summary">
+                <div class="summary-item">
+                    <span class="label">Total Questions</span>
+                    <span id="totalQuestions" class="value">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Attempted</span>
+                    <span id="totalAttempted" class="value">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Marked for Review</span>
+                    <span id="totalMarked" class="value">0</span>
+                </div>
+            </div>
+            <p class="warning">Are you sure you want to submit the exam? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="cancel-btn" onclick="closeSubmitModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="confirm-btn" onclick="submitExam()">
+                    <i class="fas fa-check"></i> Confirm Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="exam.js"></script>
+</body>
+</html>
